@@ -4,7 +4,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class CommonElements {
-    public final static String URL_BASE = "https://stellarburgers.nomoreparties.site/";
+
 
     @FindBy(how = How.CLASS_NAME, using = "AppHeader_header__logo__2D0X2")
     private SelenideElement logoButton; // кнопка логотип
