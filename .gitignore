@@ -2,5 +2,6 @@
 .idea/
 .allure/
 target/*
+build/
 !target/allure-results/
 !target/site/
