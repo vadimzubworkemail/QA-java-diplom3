@@ -45,11 +45,12 @@ public class RegisterPage extends CommonElements {
     }
 
     @Step("Регистрация пользователя")
-    public void registerNewUser(String name, String email, String password) {
+    public LoginPage registerNewUser(String name, String email, String password) {
         fillName(name);
         fillEmail(email);
         fillPassword(password);
         clickRegisterButton();
+        return page(LoginPage.class);
     }
 
     @Step("Кликнуть кнопку войти")

@@ -4,7 +4,6 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import ru.praktikum.stellarburgers.CommonElements;
 
 public class LoginPage extends CommonElements {
     public static final String URL_LOGIN = MainPage.URL_BASE + "login";

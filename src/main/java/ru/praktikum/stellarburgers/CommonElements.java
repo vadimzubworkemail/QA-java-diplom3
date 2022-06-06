@@ -18,17 +18,18 @@ public class CommonElements {
     private SelenideElement orderFeedButton; // кнопка лента заказов
 
     @Step("Клик на кнопку логотип")
-    public void clickLogoButton(){
+    public void clickLogoButton() {
         logoButton.click();
     }
 
+
     @Step("Клик на кнопку личный кабинет")
-    public void clickPersonalAreaButton(){
+    public void clickPersonalAreaButton() {
         personalAreaButton.click();
     }
 
     @Step("Клик на кнопку конструктор")
-    public void clickConstructorButton(){
+    public void clickConstructorButton() {
         constructorButton.click();
     }
 }

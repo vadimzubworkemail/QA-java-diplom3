@@ -4,7 +4,6 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import ru.praktikum.stellarburgers.CommonElements;
 
 public class MainPage extends CommonElements {
     public final static String URL_BASE = "https://stellarburgers.nomoreparties.site/";
@@ -29,6 +28,9 @@ public class MainPage extends CommonElements {
 
     @FindBy(how = How.XPATH, using = ".//h2[text()='Начинки']")
     private SelenideElement FillingsText; // текст блока соусы
+
+    @FindBy(how = How.XPATH, using = ".//button[text()='Оформить заказ']")
+    private SelenideElement createOrderButton;
 
 
     @Step("Кликнуть по кнопке войти в аккаунт")
@@ -64,5 +66,9 @@ public class MainPage extends CommonElements {
     @Step("Получить текст блока начинки")
     public SelenideElement getTextFillingsBlock() {
         return FillingsText;
+    }
+
+    public SelenideElement getCreateOrderButton() {
+        return createOrderButton;
     }
 }
