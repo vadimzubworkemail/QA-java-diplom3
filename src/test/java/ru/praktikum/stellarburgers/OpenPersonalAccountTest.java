@@ -10,6 +10,9 @@ import org.junit.runners.Parameterized;
 import ru.praktikum.stellarburgers.client.UserClient;
 import ru.praktikum.stellarburgers.model.User;
 import ru.praktikum.stellarburgers.model.UserDataGeneration;
+import ru.praktikum.stellarburgers.pages.AccountProfilePage;
+import ru.praktikum.stellarburgers.pages.LoginPage;
+import ru.praktikum.stellarburgers.pages.MainPage;
 
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.Assert.assertEquals;

@@ -1,4 +1,4 @@
-package ru.praktikum.stellarburgers;
+package ru.praktikum.stellarburgers.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
