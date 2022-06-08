@@ -1,5 +1,6 @@
 package ru.praktikum.stellarburgers.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
@@ -14,6 +15,6 @@ public class AccountProfilePage extends CommonElements {
 
     @Step("Выйти из кабинета")
     public void clickExitButton() {
-        exitButton.click();
+        exitButton.shouldBe(Condition.visible).click();
     }
 }

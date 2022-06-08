@@ -1,12 +1,10 @@
 package ru.praktikum.stellarburgers.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import ru.praktikum.stellarburgers.pages.CommonElements;
-import ru.praktikum.stellarburgers.pages.LoginPage;
-import ru.praktikum.stellarburgers.pages.MainPage;
 
 import static com.codeborne.selenide.Selenide.page;
 
@@ -46,7 +44,7 @@ public class RegisterPage extends CommonElements {
     }
 
     public void clickRegisterButton() {
-        registerButton.click();
+        registerButton.shouldBe(Condition.visible).click();
     }
 
     @Step("Регистрация пользователя")
@@ -60,7 +58,7 @@ public class RegisterPage extends CommonElements {
 
     @Step("Кликнуть кнопку войти")
     public void clickLogInButton() {
-        logInButton.click();
+        logInButton.shouldBe(Condition.visible).click();
     }
 
     @Step("Получить оповещение системы о невалидном пароле")

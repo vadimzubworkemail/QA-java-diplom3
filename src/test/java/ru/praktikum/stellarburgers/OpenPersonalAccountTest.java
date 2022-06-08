@@ -1,6 +1,6 @@
 package ru.praktikum.stellarburgers;
 
-import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.WebDriverConditions;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
@@ -15,10 +15,11 @@ import ru.praktikum.stellarburgers.pages.LoginPage;
 import ru.praktikum.stellarburgers.pages.MainPage;
 
 import static com.codeborne.selenide.Selenide.*;
-import static org.junit.Assert.assertEquals;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 @RunWith(Parameterized.class)
 public class OpenPersonalAccountTest {
+    private static final DriverInfo driverInfo = new DriverInfo();
     static MainPage mainPage;
     private final UserClient userClient = new UserClient();
     private final String driverPath;
@@ -30,8 +31,8 @@ public class OpenPersonalAccountTest {
     @Parameterized.Parameters
     public static Object[][] getData() {
         return new Object[][]{
-                {"C:\\Users\\Dick\\Documents\\studying\\Diplom\\QA-java-diplom3\\yandexdriver.exe"},
-                {"C:\\Users\\Dick\\Documents\\studying\\Diplom\\QA-java-diplom3\\chromedriver.exe"},
+                {driverInfo.getChromeDriverAbsolutePath()},
+                {driverInfo.getYandexDriverAbsolutePath()},
         };
     }
 
@@ -42,15 +43,14 @@ public class OpenPersonalAccountTest {
         User user = UserDataGeneration.random();
         userClient.registerUser(user);
         mainPage.clickLogInButton();
-        sleep(5000);
         LoginPage loginPage = page(LoginPage.class);
         loginPage.loginUser(user.getEmail(), user.getPassword());
-        sleep(5000);
+        webdriver().shouldHave(WebDriverConditions.url(MainPage.URL_BASE));
     }
 
     @After
     public void tearDown() {
-        closeWebDriver();
+        getWebDriver().quit();
         userClient.deleteUser();
     }
 
@@ -58,18 +58,24 @@ public class OpenPersonalAccountTest {
     @DisplayName("Тест перехода в «Личный кабинет»")
     public void openAccountProfileTest() {
         mainPage.clickPersonalAreaButton();
-        sleep(5000);
-        assertEquals(AccountProfilePage.URL_PROF, WebDriverRunner.getWebDriver().getCurrentUrl());
+        webdriver().shouldHave(WebDriverConditions.url(AccountProfilePage.URL_PROF));
     }
 
     @Test
-    @DisplayName("Тест перехода в «Личный кабинет»")
+    @DisplayName("Тест перехода из «Личный кабинет» в Конструктор")
     public void openConstructorFromAccountProfilePageTest() {
         mainPage.clickPersonalAreaButton();
-        sleep(5000);
         AccountProfilePage accountProfilePage = page(AccountProfilePage.class);
         accountProfilePage.clickConstructorButton();
-        sleep(5000);
-        assertEquals(MainPage.URL_BASE, WebDriverRunner.getWebDriver().getCurrentUrl());
+        webdriver().shouldHave(WebDriverConditions.url(MainPage.URL_BASE));
+    }
+
+    @Test
+    @DisplayName("Тест перехода из «Личный кабинет» на главную страницу кликом на логотип")
+    public void openLogoFromAccountProfilePageTest() {
+        mainPage.clickPersonalAreaButton();
+        AccountProfilePage accountProfilePage = page(AccountProfilePage.class);
+        accountProfilePage.clickConstructorButton();
+        webdriver().shouldHave(WebDriverConditions.url(MainPage.URL_BASE));
     }
 }

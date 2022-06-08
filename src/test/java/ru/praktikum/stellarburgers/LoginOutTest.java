@@ -1,6 +1,7 @@
 package ru.praktikum.stellarburgers;
 
-import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.WebDriverConditions;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,16 +14,18 @@ import ru.praktikum.stellarburgers.pages.AccountProfilePage;
 import ru.praktikum.stellarburgers.pages.LoginPage;
 import ru.praktikum.stellarburgers.pages.MainPage;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
-import static org.junit.Assert.assertEquals;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static ru.praktikum.stellarburgers.pages.LoginPage.URL_LOGIN;
 
 @RunWith(Parameterized.class)
 public class LoginOutTest {
+    private static final DriverInfo driverInfo = new DriverInfo();
     static MainPage mainPage;
     private final String driverPath;
-    private User user;
     private final UserClient userClient = new UserClient();
+    private User user;
 
 
     public LoginOutTest(String driverPath) {
@@ -32,8 +35,8 @@ public class LoginOutTest {
     @Parameterized.Parameters
     public static Object[][] getData() {
         return new Object[][]{
-                {"C:\\Users\\Dick\\Documents\\studying\\Diplom\\QA-java-diplom3\\yandexdriver.exe"},
-                {"C:\\Users\\Dick\\Documents\\studying\\Diplom\\QA-java-diplom3\\chromedriver.exe"},
+                {driverInfo.getChromeDriverAbsolutePath()},
+                {driverInfo.getYandexDriverAbsolutePath()},
         };
     }
 
@@ -45,26 +48,24 @@ public class LoginOutTest {
         mainPage = open(MainPage.URL_BASE, MainPage.class);
         mainPage.clickLogInButton();
         LoginPage loginPage = page(LoginPage.class);
-        loginPage.clickLoginButton();
         loginPage.loginUser(user.getEmail(), user.getPassword());
-        sleep(5000);
+        mainPage.getCreateOrderButton().shouldBe(visible);
     }
 
     @After
     public void tearDown() {
-        closeWebDriver();
+        getWebDriver().quit();
         if (user != null) {
             userClient.deleteUser();
         }
     }
 
     @Test
+    @DisplayName("Проверяем выход по кнопке Выйти из личного кабинета")
     public void logOutTest() {
         mainPage.clickPersonalAreaButton();
         AccountProfilePage accountProfilePage = page(AccountProfilePage.class);
-        sleep(5000);
         accountProfilePage.clickExitButton();
-        sleep(5000);
-        assertEquals(URL_LOGIN, WebDriverRunner.getWebDriver().getCurrentUrl());
+        webdriver().shouldHave(WebDriverConditions.url(URL_LOGIN));
     }
 }

@@ -15,10 +15,13 @@ import ru.praktikum.stellarburgers.pages.LoginPage;
 import ru.praktikum.stellarburgers.pages.MainPage;
 import ru.praktikum.stellarburgers.pages.RegisterPage;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 @RunWith(Parameterized.class)
 public class LoginTest {
+    private static final DriverInfo driverInfo = new DriverInfo();
     public static MainPage mainPage;
     private final UserClient userClient = new UserClient();
     private final String driverPath;
@@ -31,8 +34,8 @@ public class LoginTest {
     @Parameterized.Parameters
     public static Object[][] getData() {
         return new Object[][]{
-                {"C:\\Users\\Dick\\Documents\\studying\\Diplom\\QA-java-diplom3\\yandexdriver.exe"},
-                {"C:\\Users\\Dick\\Documents\\studying\\Diplom\\QA-java-diplom3\\chromedriver.exe"},
+                {driverInfo.getChromeDriverAbsolutePath()},
+                {driverInfo.getYandexDriverAbsolutePath()},
         };
     }
 
@@ -46,7 +49,7 @@ public class LoginTest {
 
     @After
     public void tearDown() {
-        closeWebDriver();
+        getWebDriver().quit();
         if (user != null) {
             userClient.deleteUser();
         }
@@ -58,7 +61,6 @@ public class LoginTest {
         mainPage.clickLogInButton();
         LoginPage loginPage = page(LoginPage.class);
         loginPage.loginUser(user.getEmail(), user.getPassword());
-        sleep(5000);
         mainPage.getCreateOrderButton().shouldBe(Condition.visible);
     }
 
@@ -68,7 +70,6 @@ public class LoginTest {
         mainPage.clickPersonalAreaButton();
         LoginPage loginPage = page(LoginPage.class);
         loginPage.loginUser(user.getEmail(), user.getPassword());
-        sleep(5000);
         mainPage.getCreateOrderButton().shouldBe(Condition.visible);
     }
 
@@ -81,7 +82,6 @@ public class LoginTest {
         RegisterPage registerPage = page(RegisterPage.class);
         registerPage.clickLogInButton();
         loginPage.loginUser(user.getEmail(), user.getPassword());
-        sleep(5000);
         mainPage.getCreateOrderButton().shouldBe(Condition.visible);
     }
 
@@ -94,7 +94,6 @@ public class LoginTest {
         ForgotPasswordPage forgotPasswordPage = page(ForgotPasswordPage.class);
         forgotPasswordPage.clickLoginButton();
         loginPage.loginUser(user.getEmail(), user.getPassword());
-        sleep(5000);
         mainPage.getCreateOrderButton().shouldBe(Condition.visible);
     }
 }

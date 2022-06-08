@@ -1,10 +1,10 @@
 package ru.praktikum.stellarburgers.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import ru.praktikum.stellarburgers.pages.CommonElements;
 
 public class MainPage extends CommonElements {
     public final static String URL_BASE = "https://stellarburgers.nomoreparties.site/";
@@ -36,22 +36,22 @@ public class MainPage extends CommonElements {
 
     @Step("Кликнуть по кнопке войти в аккаунт")
     public void clickLogInButton() {
-        LogInButton.click();
+        LogInButton.shouldBe(Condition.visible).click();
     }
 
     @Step("Кликнуть по кнопке булочки")
     public void clickBunsSection() {
-        bunsButton.click();
+        bunsButton.shouldBe(Condition.visible).click();
     }
 
     @Step("Кликнуть по кнопке соусы")
     public void clickSaucesSection() {
-        saucesButton.click();
+        saucesButton.shouldBe(Condition.visible).click();
     }
 
     @Step("Кликнуть по кнопке начинки")
     public void clickFillingsSection() {
-        fillingsButton.click();
+        fillingsButton.shouldBe(Condition.visible).click();
     }
 
     @Step("Получить текст блока булочки")

@@ -1,9 +1,9 @@
 package ru.praktikum.stellarburgers.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import ru.praktikum.stellarburgers.pages.CommonElements;
 
 public class ForgotPasswordPage extends CommonElements {
     public static final String URL_FORGOT_PASSWORD = "https://stellarburgers.nomoreparties.site/forgot-password";
@@ -18,10 +18,10 @@ public class ForgotPasswordPage extends CommonElements {
     }
 
     public void clickLoginButton() {
-        loginButton.click();
+        loginButton.shouldBe(Condition.visible).click();
     }
 
     public void clickRestoreButton() {
-        restoreButton.click();
+        restoreButton.shouldBe(Condition.visible).click();
     }
 }

@@ -1,5 +1,6 @@
 package ru.praktikum.stellarburgers.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
@@ -19,17 +20,17 @@ public class CommonElements {
 
     @Step("Клик на кнопку логотип")
     public void clickLogoButton() {
-        logoButton.click();
+        logoButton.shouldBe(Condition.visible).click();
     }
 
 
     @Step("Клик на кнопку личный кабинет")
     public void clickPersonalAreaButton() {
-        personalAreaButton.click();
+        personalAreaButton.shouldBe(Condition.visible).click();
     }
 
     @Step("Клик на кнопку конструктор")
     public void clickConstructorButton() {
-        constructorButton.click();
+        constructorButton.shouldBe(Condition.visible).click();
     }
 }

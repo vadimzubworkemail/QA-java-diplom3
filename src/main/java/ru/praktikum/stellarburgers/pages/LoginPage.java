@@ -1,5 +1,6 @@
 package ru.praktikum.stellarburgers.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
@@ -33,7 +34,7 @@ public class LoginPage extends CommonElements {
     }
 
     public void clickLoginButton() {
-        loginButton.click();
+        loginButton.shouldBe(Condition.visible).click();
     }
 
     @Step("Ввести логин и пароль")
@@ -45,11 +46,11 @@ public class LoginPage extends CommonElements {
 
     @Step("Кликнуть на кнопку зарегистрироваться")
     public void clickRegisterButton() {
-        registerButton.click();
+        registerButton.shouldBe(Condition.visible).click();
     }
 
     @Step("Кликнуть на кнопку восстановить пароль")
     public void clickForgotPasswordButton() {
-        forgotPasswordButton.click();
+        forgotPasswordButton.shouldBe(Condition.visible).click();
     }
 }

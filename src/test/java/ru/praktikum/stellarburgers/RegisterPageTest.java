@@ -1,8 +1,8 @@
 package ru.praktikum.stellarburgers;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.WebDriverConditions;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,17 +14,16 @@ import ru.praktikum.stellarburgers.model.UserDataGeneration;
 import ru.praktikum.stellarburgers.pages.LoginPage;
 import ru.praktikum.stellarburgers.pages.RegisterPage;
 
-import static com.codeborne.selenide.Selenide.closeWebDriver;
-import static com.codeborne.selenide.Selenide.open;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.junit.Assert.assertEquals;
 
 
 @RunWith(Parameterized.class)
 public class RegisterPageTest {
+    private static final DriverInfo driverInfo = new DriverInfo();
     private final String driverPath;
-
+    LoginPage loginPage;
     private RegisterPage registerPage;
     private UserClient userClient;
     private User user;
@@ -36,8 +35,8 @@ public class RegisterPageTest {
     @Parameterized.Parameters
     public static Object[][] getDate() {
         return new Object[][]{
-                {"C:\\Users\\Dick\\Documents\\studying\\Diplom\\QA-java-diplom3\\yandexdriver.exe"},
-                {"C:\\Users\\Dick\\Documents\\studying\\Diplom\\QA-java-diplom3\\chromedriver.exe"},
+                {driverInfo.getChromeDriverAbsolutePath()},
+                {driverInfo.getYandexDriverAbsolutePath()},
         };
     }
 
@@ -50,7 +49,7 @@ public class RegisterPageTest {
 
     @After
     public void tearDown() {
-        closeWebDriver();
+        getWebDriver().quit();
         if (user != null) {
             userClient.deleteUser();
         }
@@ -60,9 +59,9 @@ public class RegisterPageTest {
     @DisplayName("Успешная регистрация пользователя")
     public void registerSuccessTest() {
         user = UserDataGeneration.random();
-        LoginPage loginPage = registerPage.registerNewUser(user.getName(), user.getEmail(), user.getPassword());
-        ValidatableResponse validatableResponse = userClient.loginUser(user);
-        assertThat("Пользователь не зарегистрирован", validatableResponse.extract().statusCode(), equalTo(200));
+        registerPage.registerNewUser(user.getName(), user.getEmail(), user.getPassword());
+        loginPage = page(LoginPage.class);
+        webdriver().shouldHave(WebDriverConditions.url(LoginPage.URL_LOGIN));
     }
 
     @Test

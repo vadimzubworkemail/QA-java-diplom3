@@ -9,11 +9,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import ru.praktikum.stellarburgers.pages.MainPage;
 
-import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 @RunWith(Parameterized.class)
 public class ConstructorTest {
+    private static final DriverInfo driverInfo = new DriverInfo();
     private static MainPage mainPage;
     private final String driverPath;
 
@@ -24,8 +25,8 @@ public class ConstructorTest {
     @Parameterized.Parameters
     public static Object[][] getData() {
         return new Object[][]{
-                {"C:\\Users\\Dick\\Documents\\studying\\Diplom\\QA-java-diplom3\\yandexdriver.exe"},
-                {"C:\\Users\\Dick\\Documents\\studying\\Diplom\\QA-java-diplom3\\chromedriver.exe"},
+                {driverInfo.getChromeDriverAbsolutePath()},
+                {driverInfo.getYandexDriverAbsolutePath()},
         };
     }
 
@@ -37,7 +38,7 @@ public class ConstructorTest {
 
     @After
     public void tearDown() {
-        closeWebDriver();
+        getWebDriver().quit();
     }
 
     @Test
