@@ -14,6 +14,7 @@ import ru.praktikum.stellarburgers.pages.ForgotPasswordPage;
 import ru.praktikum.stellarburgers.pages.LoginPage;
 import ru.praktikum.stellarburgers.pages.MainPage;
 import ru.praktikum.stellarburgers.pages.RegisterPage;
+import ru.praktikum.stellarburgers.utils.DriverInfo;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;

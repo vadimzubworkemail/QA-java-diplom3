@@ -1,4 +1,4 @@
-package ru.praktikum.stellarburgers;
+package ru.praktikum.stellarburgers.utils;
 
 import lombok.Getter;
 

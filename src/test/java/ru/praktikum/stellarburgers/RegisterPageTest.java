@@ -13,6 +13,7 @@ import ru.praktikum.stellarburgers.model.User;
 import ru.praktikum.stellarburgers.model.UserDataGeneration;
 import ru.praktikum.stellarburgers.pages.LoginPage;
 import ru.praktikum.stellarburgers.pages.RegisterPage;
+import ru.praktikum.stellarburgers.utils.DriverInfo;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
